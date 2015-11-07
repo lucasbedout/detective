@@ -1,3 +1,6 @@
 /vendor
+/test/server/vendor
+/test/server/composer.lock
+
 .phpintel
 composer.lock
