@@ -8,7 +8,7 @@ class ProductsController extends BaseController
 {
     public function index() 
     {
-    	$products = \App\Product::all();
+    	$products = \App\Product::all()->load(\App\Product::$eager);
 
     	return response()->json($products);
     }
