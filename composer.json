@@ -1,0 +1,22 @@
+{
+    "name": "lucasbedout/eloquent-filters",
+    "description": "Provide beautiful and easy to use filtering functionalities for Eloquent library",
+    "keywords": ["laravel", "eloquent", "filters", "rest"],
+    "authors": [
+        {
+            "name": "Lucas Bédout",
+            "email": "lucas.bedout@free.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/database": "~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Detective\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
