@@ -2,5 +2,6 @@
 /test/server/vendor
 /test/server/composer.lock
 .DS_Store
+/**/.DS_Store
 .phpintel
 composer.lock
