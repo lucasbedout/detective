@@ -136,12 +136,12 @@ class Builder
     {
         foreach ($param['filters'] as $key => $filter) {
             if ($filter['operator'] == 'BETWEEN') {
-                if ($key == 0)
+                if ($key == 0 || $param['operator'] == 'AND')
                     $q->WhereBetween($param['property'], array($filter['start'], $filter['end']));
                 else 
                     $q->orWhereBetween($param['property'], array($filter['start'], $filter['end']));
             } else {
-                if ($key == 0)
+                if ($key == 0 || $param['operator'] == 'AND')
                     $q->where($param['property'], $filter['operator'], $filter['value']); 
                 else
                     $q->orWhere($param['property'], $filter['operator'], $filter['value']); 
@@ -170,6 +170,11 @@ class Builder
         if (array_key_exists($parts[0], $this->_context->getRelations())) {
             $param = $this->_getRelationAttributeInformations($parts);
         }
+
+        if (isset($param['property_type']) && $param['property_type'] == 'date')
+            $param['operator'] = 'AND';
+        else 
+            $param['operator'] = 'OR';
 
         return $param;
     }
