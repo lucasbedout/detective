@@ -12,9 +12,9 @@ class Context
 
     private $_primary_key;
 
-    private $_relations;
+    private $_relations = [];
 
-    private $_fields;
+    private $_fields = [];
 
     private $_nest;
 
