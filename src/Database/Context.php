@@ -91,7 +91,7 @@ class Context
     public function setRelations() 
     {
         if (!property_exists($this->_class, 'relationships'))
-            $this->_relations = [];
+            return $this->_relations = [];
 
         $class = $this->_class;
 
