@@ -30,9 +30,9 @@ class Builder
      **/ 
     public function build($parameters)
     {
-        if (!is_array($parameters))
+        if (!is_array($parameters) || empty($parameters) || count($parameters) == 0)
             return $this->_builder;
-        
+
        foreach ($parameters as $attr => $value) {
             // Get param infos
             $this->_parameters[$attr] = $this->_parseAttributeName($attr);
