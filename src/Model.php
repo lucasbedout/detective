@@ -24,4 +24,9 @@ class Model extends \Illuminate\Database\Eloquent\Model
 
         return $builder->build($parameters);
     }
+
+    public static function getContext($class)
+    {
+        return new Database\Context($class);
+    }
 } 
