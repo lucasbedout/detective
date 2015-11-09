@@ -11,7 +11,7 @@ class Builder
 
     private $_builder;
 
-    private $_filters;
+    private $_filters = [];
 
     private $_parameters;
 
@@ -38,17 +38,37 @@ class Builder
 
         $this->_run();
 
-        return $this->_builder->groupBy();
+        if (array_key_exists('orderby', $parameters)) {
+            $this->_orderBy($parameters);
+        }
+
+        return $this->_builder;
     }
 
     private function _run() 
     {
         foreach ($this->_parameters as $parameter) {
-            $this->_addFilter($parameter);
+            if (isset($parameter['property_type']))
+                $this->_addFilter($parameter);
         }
 
         foreach ($this->_filters as $key => $param) {
             $this->_addQuery($param);
+        }
+    }
+
+    private function _orderBy($parameters) 
+    {
+        if (strpos($parameters['orderby'], ',') !== false) {
+            $values = explode(',', $parameters['orderby']);
+        } else {
+            $values[0] = $parameters['orderby'];
+        }
+
+        $direction = array_key_exists('direction', $parameters) ? $parameters['direction'] : 'ASC';
+
+        foreach ($values as $value) {
+            $this->_builder = $this->_builder->orderBy($value, $direction);
         }
     }
 
