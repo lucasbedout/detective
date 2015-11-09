@@ -13,9 +13,10 @@ class Model extends \Illuminate\Database\Eloquent\Model
      * 
      * @return Eloquent\Model method call 
      **/ 
-    public static function filter($parameters = null) 
+    public static function filter($parameters = null, $class = null) 
     {
-        $class = get_called_class();
+        if (empty($class))
+            $class = get_called_class();
 
         $context = new Database\Context($class);
 

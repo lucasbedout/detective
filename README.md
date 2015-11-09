@@ -150,6 +150,7 @@ You can use multiple syntaxe, each one corresponding to a model attribute or rel
 - `property` : filter by object property (ex : name=yourname)
 - `relation` : filter by relation primary key (ex : category=1)
 - `relation-property` : filter by relation property (ex : category-name=Laptop)
+- `relation-property-last` : filter by relation property of the last relation object(ex : category-name-last=Laptop), also works with first
 - `relation-pviot-property`: filter by relation pivot property (ex : stores-pivot-quantity=10)
 
 ### Filtering value format

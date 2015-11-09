@@ -110,6 +110,9 @@ class Builder
     private function _addClassicRelationQuery($param, $relation)
     {
         return $this->_builder->whereHas($param['model'], function($q) use ($param, $relation) {
+            if ($param['position'] != 'all')
+                $q->where($relation['relation_primary_key'], '=', \DB::raw('(select ' . $param['position'] . '(' . $relation['relation_primary_key'] . ') from  ' . $relation['relation_table'] . ' where ' . $relation['foreign_key'] . '=' . $this->_context->getPrimaryKey() . ')'));
+
             $q->where(function($query) use ($param, $relation) {
                 $query = $this->_generateQuery($query, $param);
             });
@@ -137,7 +140,7 @@ class Builder
         foreach ($param['filters'] as $key => $filter) {
             if ($filter['operator'] == 'BETWEEN') {
                 if ($key == 0 || $param['operator'] == 'AND')
-                    $q->WhereBetween($param['property'], array($filter['start'], $filter['end']));
+                    $q->whereBetween($param['property'], array($filter['start'], $filter['end']));
                 else 
                     $q->orWhereBetween($param['property'], array($filter['start'], $filter['end']));
             } else {
@@ -186,33 +189,25 @@ class Builder
         $param['model'] = $parts[0];
         $param['relation_type'] = strtolower($relations[$parts[0]]['type']);
 
+        // Relation property
         if (!isset($parts[1]))
             $parts[1] = $relations[$parts[0]]['relation_primary_key'];
 
         if (isset($parts[1]) && $parts[1] != 'pivot' && array_key_exists($parts[1], $relations[$parts[0]]['relation_fields'])) {
+            if (!isset($parts[2]) || ($parts[2] != 'min' && $parts[2] != 'last'))
+                $param['position'] = 'all';
+            else
+               $param['position'] = $parts[2] == 'first' ? 'min' : 'max';
+
+            // Set property name, type and relation sorting
             $param['property'] = $parts[1];
             $param['property_type'] = $relations[$parts[0]]['relation_fields'][$parts[1]];
         } else if (isset($parts[2]) && $parts[1] == 'pivot' && array_key_exists($parts[2], $relations[$parts[0]]['pivot_fields'])) {
+            // Set pivot property name, type and relation sorting
             $param['pivot_property'] = $parts[2];
             $param['property_type'] = $relations[$parts[0]]['pivot_fields'][$parts[2]];
         }
 
         return $param;
-    }
-
-    public static function isJoined($query, $table)
-    {
-        $joins = $query->getQuery()->joins;
-
-        if ($joins == null) 
-            return false;
-
-        foreach ($joins as $join) {
-            if ($join->table == $table) {
-                return true;
-            }
-        }
-
-        return false;
     }
 } 
