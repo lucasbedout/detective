@@ -4,38 +4,7 @@ Eloquent extension for advanced filtering. Designed to be used with URL paramete
 
 ## Installation 
 
-As the repository is not on packagist yet, you must add a custom repository field to your composer.json file.
-
-```json
-"repositories": [
-    {
-        "type": "package",
-        "package": {
-            "name": "lucasbedout/detective",
-            "version": "dev-master",
-            "source": {
-                "url": "git://github.com/lucasbedout/detective.git",
-                "type": "git",
-                "reference": "master"
-            },
-            "autoload": {
-                "psr-4" : {
-                    "Detective\\" : "src"
-                }
-            }
-        }
-    }
-]
-```
-
-Then add a line to the `require` section.
-
-	"lucasbedout/detective": "dev-master"
-
-And install it.
-
-	composer update 
-
+	composer require lucasbedout/detective
 
 ## Configuration
 
