@@ -1,5 +1,5 @@
 {
-    "name": "lucasbedout/eloquent-filters",
+    "name": "lucasbedout/detective",
     "description": "Provide beautiful and easy to use filtering functionalities for Eloquent library",
     "keywords": ["laravel", "eloquent", "filters", "rest"],
     "authors": [
