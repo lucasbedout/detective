@@ -45,7 +45,7 @@ class ValueParser
     private function _parseNumber($number, $attr) 
     {
         // Between
-        if (strpos($number, '-') !== false) {
+        if (strpos($number, '-') !== false && strpos($number, '-') !== 0) {
             return $this->_between($number);
         }
 
