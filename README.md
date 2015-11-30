@@ -157,3 +157,8 @@ You can also provide an `orderby` parameter.
 - orderby=name,created_at : order your results by name and creation date
 - direction=asc / direction=desc : direction of your orderby parameters (will move in the future)
 
+# Development Roadmap
+
+- Add existence checking (not null, not empty)
+- Add not filter
+- Performance issues with big Many To Many queries (>100k rows)
