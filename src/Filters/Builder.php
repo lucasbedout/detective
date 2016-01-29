@@ -15,12 +15,11 @@ class Builder
 
     private $_parameters;
 
-    public function __construct($context)
+    public function __construct($query, $context)
     {
         $this->_context = $context;
-        $class = $context->getClass();
 
-        $this->_builder = $class::whereRaw('1 = 1');
+        $this->_builder = $query;
     }
 
     /**

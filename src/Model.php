@@ -13,14 +13,14 @@ class Model extends \Illuminate\Database\Eloquent\Model
      * 
      * @return Eloquent\Model method call 
      **/ 
-    public static function filter($parameters = null, $class = null) 
+    public function scopeFilter($query, $parameters = null, $class = null) 
     {
         if (empty($class))
             $class = get_called_class();
 
         $context = new Database\Context($class);
 
-        $builder = new Filters\Builder($context);
+        $builder = new Filters\Builder($query, $context);
 
         return $builder->build($parameters);
     }
