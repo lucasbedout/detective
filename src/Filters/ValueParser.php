@@ -50,7 +50,7 @@ class ValueParser
         }
 
         // Superior or inferior 
-        if (in_array($number[0], ['<', '>'])) {
+        if (!empty($number) && in_array($number[0], ['<', '>'])) {
             return ['operator' => $number[0], 'value' => ltrim($number, $number[0])];
         }
 
