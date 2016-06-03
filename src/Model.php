@@ -4,6 +4,8 @@ namespace Detective;
 
 use Detective\Database\Relations\BasicRelation;
 use Detective\Database\Relations\ManyToManyRelation;
+use Detective\Database\Fields\Analyzer;
+use DB;
 
 
 class Model extends \Illuminate\Database\Eloquent\Model
@@ -15,6 +17,18 @@ class Model extends \Illuminate\Database\Eloquent\Model
      *
      */
     protected $relations = [];
+
+    /**
+     * Returns all fields with their type
+     *
+     * @return Collection
+     **/
+    public function fields()
+    {
+        $analyzer = new Alayzer($this->getTable());
+
+        return $analyzer->fields();
+    }
 
     /**
      * Returns all relations with their informations

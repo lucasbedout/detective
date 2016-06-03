@@ -28,8 +28,10 @@ class ManyToManyRelation extends Relation
     {
         parent::__construct($relation);
 
+        // Set the foreign key from eloquent
         $this->pivot_foreign_key = $relation->getForeignKey();
 
+        // Set the related model key 
         $this->pivot_other_key = $relation->getOtherKey();
 
         return $this;

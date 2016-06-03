@@ -4,6 +4,13 @@ use Detective\Testing\Models\User;
 
 class ContextFunctionsTest extends \Detective\Testing\TestCase
 {
+    public function testGetModelFields()
+    {
+        $user = new User;
+
+        $user->fields();
+    }
+
     public function testGetModelBasicRelation()
     {
         $user = new User;
