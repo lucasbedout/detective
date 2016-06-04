@@ -11,6 +11,7 @@ class ContextFunctionsTest extends \Detective\Testing\TestCase
         $user->fields();
     }
 
+    /*
     public function testGetModelBasicRelation()
     {
         $user = new User;
@@ -44,8 +45,8 @@ class ContextFunctionsTest extends \Detective\Testing\TestCase
         $this->assertEquals($reads_relation->primary_key, 'id');
         $this->assertEquals($reads_relation->model, 'Detective\Testing\Models\User');
         $this->assertEquals($reads_relation->related_model, 'Detective\Testing\Models\Post');
-
-
     }
+
+    */
 
 }

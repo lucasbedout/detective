@@ -25,7 +25,7 @@ class Model extends \Illuminate\Database\Eloquent\Model
      **/
     public function fields()
     {
-        $analyzer = new Alayzer($this->getTable());
+        $analyzer = new Analyzer($this->getTable());
 
         return $analyzer->fields();
     }
