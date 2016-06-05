@@ -1,6 +1,6 @@
 <?php
 
-use Detective\Testing\Models\User;
+// use Detective\Testing\Models\User;
 
 // class StringsFilteringTest extends \Detective\Testing\TestCase
 // {
