@@ -37,28 +37,24 @@ class Model extends \Illuminate\Database\Eloquent\Model
      **/
     public function relations()
     {
-        $relations = collect();
-
-        // If there is no relation, juste return the empty collection
+        // If there is no relation, juste return an empty collection
         if (!isset($this->relations))
-            return $relations;
+            return collect();
 
         // Iterate over the relations and push them to the relations array
-        collect($this->relations)->each(function($relation) use ($relations) {
+        return collect($this->relations)->map(function($relation) {
             // Save the relation object
             $relation_object = $this->$relation();
 
             // Choose the right class to use
             if (get_class_short_name($relation_object) == 'BelongsToMany') {
                 // Many to many relation
-                $relations->push(new ManyToManyRelation($relation_object));
+                return new ManyToManyRelation($relation_object);
             } else {
                 // Relation using a foreign key
-                $relations->push(new BasicRelation($relation_object));
+                return new BasicRelation($relation_object);
             }
         });
-
-        return $relations;
     }
 
     /**

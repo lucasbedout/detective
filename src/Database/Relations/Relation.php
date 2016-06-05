@@ -12,12 +12,6 @@ class Relation
     * @var $type
     * Lowercased type of the relation (belongsto, hasmany,...)
     */
-    public $eloquent_relation;
-
-    /**
-    * @var $type
-    * Lowercased type of the relation (belongsto, hasmany,...)
-    */
     public $type;
 
     /**
@@ -39,8 +33,8 @@ class Relation
     public $primary_key;
 
     /**
-    * @var $foreign_key
-    * Foreign key on the first model
+    * @var $related_fields
+    * Related model fields
     */
     public $related_fields;
 
@@ -57,12 +51,11 @@ class Relation
         // Then the first model
         $this->model = get_class($relation->getParent());
 
-        // Find informations about the related model
+        // Find informations about the related model (key and fields)
         $related = $relation->getRelated();
-
         $this->related_model = get_class($related);
-
         $this->primary_key = $related->getKeyName();
+        $this->related_fields = $related->fields();
 
         return $this;
     }

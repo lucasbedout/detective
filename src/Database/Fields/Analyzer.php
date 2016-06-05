@@ -37,7 +37,7 @@ class Analyzer {
 
         return $columns->map(function($column) {
             $field_class = $this->parseType($column);
-            return new $field_class($column);
+            return new $field_class($column->getName(), $column->getType(), $this->table);
         });
     }
 
@@ -47,7 +47,7 @@ class Analyzer {
      * @return string the type name
      **/
     private function parseType($doctrine_object)
-    {   
+    {
         // Get the short name of the class (i.e IntegerType), lowercase it and remove the "type" word
         $class = str_replace('type', '', strtolower(get_class_short_name($doctrine_object->getType())));
 
