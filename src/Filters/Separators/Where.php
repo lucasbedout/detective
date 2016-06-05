@@ -16,7 +16,7 @@ class Where extends Separator implements Addable {
     public function add(Closure $callback) : Builder
     {
         return $this->builder->where(function($q) use ($callback) {
-          $callback($q);
+            $callback($q);
         });
     }
 

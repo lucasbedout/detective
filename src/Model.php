@@ -49,10 +49,10 @@ class Model extends \Illuminate\Database\Eloquent\Model
             // Choose the right class to use
             if (get_class_short_name($relation_object) == 'BelongsToMany') {
                 // Many to many relation
-                return new ManyToManyRelation($relation_object);
+                return new ManyToManyRelation($relation, $relation_object);
             } else {
                 // Relation using a foreign key
-                return new BasicRelation($relation_object);
+                return new BasicRelation($relation, $relation_object);
             }
         });
     }
@@ -67,7 +67,7 @@ class Model extends \Illuminate\Database\Eloquent\Model
         // Find the current called class
         $class = get_called_class();
 
-        $context = new Database\Context($class);
+        $filters = new Database\Context($class);
 
         $builder = new Filters\Builder($query, $context);
 

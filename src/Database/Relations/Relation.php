@@ -9,6 +9,12 @@ namespace Detective\Database\Relations;
 class Relation
 {
     /**
+    * @var $method
+    * Model relation method
+    */
+    public $method;
+
+    /**
     * @var $type
     * Lowercased type of the relation (belongsto, hasmany,...)
     */
@@ -43,9 +49,12 @@ class Relation
     * @param $relation Eloquent relation object (belongsTo, etc..)
     * @return Relation $this
     */
-    public function __construct($relation)
+    public function __construct($method, $relation)
     {
-        // Set relation type first
+        // Set relation method
+        $this->method = $method;
+
+        // Set relation type
         $this->type = strtolower(get_class_short_name($relation));
 
         // Then the first model
@@ -54,7 +63,7 @@ class Relation
         // Find informations about the related model (key and fields)
         $related = $relation->getRelated();
         $this->related_model = get_class($related);
-        $this->primary_key = $related->getKeyName();
+        $this->primary_key = $related->getQualifiedKeyName();
         $this->related_fields = $related->fields();
 
         return $this;

@@ -19,9 +19,9 @@ class BasicRelation extends Relation
     * @param $relation Eloquent relation object (belongsTo, etc..)
     * @return Relation $this
     */
-    public function __construct($relation)
+    public function __construct($method, $relation)
     {
-        parent::__construct($relation);
+        parent::__construct($method, $relation);
 
         $this->foreign_key = $relation->getForeignKey();
 
