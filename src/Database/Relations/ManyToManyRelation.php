@@ -2,7 +2,7 @@
 
 namespace Detective\Database\Relations;
 
-use Detective\Database\Fields\Analyzer;;
+use Detective\Database\Fields\Analyzer;
 
 /**
 * Represents a basic relation between 2 models, with a foreign key
