@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Detective\Contracts\Addable;
 use Detective\Contracts\Applyable;
 
-class Different extends BasicOperator implements Applyable
+class IsNull extends Operator implements Applyable
 {
     /**
-    * Apply a != filter on the builder
+    * Apply a LIKE filter on the builder
     * @return Illuminate\Database\Eloquent\Builder
     */
     public function apply() : Builder
     {
         return $this->separator->add(function($q) {
-            $q->where($this->field->name, '!=', $this->value);
+            $q->whereNull($this->field->name);
         });
     }
 

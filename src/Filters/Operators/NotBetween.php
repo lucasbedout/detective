@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Detective\Contracts\Addable;
 use Detective\Contracts\Applyable;
 
-class Between extends Operator implements Applyable
+class NotBetween extends Operator implements Applyable
 {
     private $start;
 
@@ -29,13 +29,13 @@ class Between extends Operator implements Applyable
     }
 
     /**
-    * Apply a between filter on the builder
+    * Apply a not between filter on the builder
     * @return Illuminate\Database\Eloquent\Builder
     */
     public function apply() : Builder
     {
         return $this->separator->add(function($q) {
-            $q->whereBetween($this->field->name, [$this->start, $this->end]);
+            $q->whereNotBetween($this->field->name, [$this->start, $this->end]);
         });
     }
 

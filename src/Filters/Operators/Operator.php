@@ -15,12 +15,20 @@ abstract class Operator {
     protected $separator;
 
     /**
-    * Give his builder to the separator
-    * @param Detective\Contracts\Addable $separator
-    * @param Illuminate\Database\Eloquent\Builder $builder
+    * @var Detective\Filters\Separators\Separator
     */
-    public function __construct(Addable $separator)
+    protected $field;
+
+
+    /**
+    * Give his builder and field to the separator
+    * @param Detective\Contracts\Addable $separator
+    * @param Detective\Database\Fields\Field $field
+    */
+    public function __construct(Addable $separator, $field)
     {
         $this->separator = $separator;
+
+        $this->field = $field;
     }
 }
