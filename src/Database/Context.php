@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Detective\Database;
 
@@ -18,11 +18,11 @@ class Context
 
     private $_nest;
 
-    private $_integer_types = ['int', 'double', 'float', 'decimal', 'tinyint','smallint'];
+    private $_integer_types = ['integer', 'bigint', 'float', 'decimal', 'smallint','decimal'];
 
-    private $_string_types = ['varchar', 'text', 'blob', 'longtext'];
-    
-    private $_date_types = ['date', 'datetime', 'timestamp', 'time'];
+    private $_string_types = ['string', 'text', 'blob'];
+
+    private $_date_types = ['date', 'datetime', 'datetimetz', 'vardatetime', 'time'];
 
 
     /**
@@ -30,7 +30,7 @@ class Context
      * @param $classname Name of the class
      * @return $this
      **/
-    public function __construct($classname, $table = null, $nest = true) 
+    public function __construct($classname, $table = null, $nest = true)
     {
         $this->_class = $classname;
         $this->_nest = $nest;
@@ -40,7 +40,7 @@ class Context
         if (empty($table))
             $this->_table = (new $this->_class())->getTable();
         else
-           $this->_table = $table; 
+           $this->_table = $table;
 
         $this->setFields()->setRelations();
 
@@ -53,10 +53,13 @@ class Context
      **/
     public function setFields()
     {
-        $columns = DB::select('SHOW columns from ' . $this->_table);
+        $platform = DB::getDoctrineConnection()->getDatabasePlatform();
+        $platform->registerDoctrineTypeMapping('_int4', 'string'); // handle unsupported postgres type
+
+        $columns = DB::getDoctrineSchemaManager()->listTableColumns($this->_table);
 
         foreach ($columns as $key => $column) {
-            $this->_fields[$column->Field] = $this->parseAtomicType($column->Type);
+            $this->_fields[$column->getName()] = $this->parseAtomicType($column->getType());
         }
 
         return $this;
@@ -67,20 +70,20 @@ class Context
         return $this->_fields;
     }
 
-    public function getTable() 
+    public function getTable()
     {
         return $this->_table;
     }
 
     private function parseAtomicType($type)
     {
-        $complete_type = explode('(', $type, 2);
+        $complete_type = strtolower($type);
 
-        if (in_array($complete_type[0], $this->_integer_types))
+        if (in_array($complete_type, $this->_integer_types))
             return 'number';
-        else if (in_array($complete_type[0], $this->_date_types))
+        else if (in_array($complete_type, $this->_date_types))
             return 'date';
-        else 
+        else
             return 'string';
     }
 
@@ -88,7 +91,7 @@ class Context
      * List $_class relations
      * @return $this
      **/
-    public function setRelations() 
+    public function setRelations()
     {
         if (!property_exists($this->_class, 'relationships'))
             return $this->_relations = [];
@@ -126,7 +129,7 @@ class Context
         }
     }
 
-    public function getRelations() 
+    public function getRelations()
     {
         return $this->_relations;
     }
@@ -140,4 +143,4 @@ class Context
     {
         return $this->_class;
     }
-} 
+}
