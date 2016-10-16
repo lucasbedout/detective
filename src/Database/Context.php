@@ -55,6 +55,8 @@ class Context
     {
         $platform = DB::getDoctrineConnection()->getDatabasePlatform();
         $platform->registerDoctrineTypeMapping('_int4', 'string'); // handle unsupported postgres type
+        $platform->registerDoctrineTypeMapping('json', 'text'); // handle unsupported postgres type
+        $platform->registerDoctrineTypeMapping('jsonb', 'text'); // handle unsupported postgres type
 
         $columns = DB::getDoctrineSchemaManager()->listTableColumns($this->_table);
 
