@@ -18,7 +18,7 @@ class Context
 
     private $_nest;
 
-    private $_integer_types = ['integer', 'bigint', 'float', 'decimal', 'smallint','decimal'];
+    private $_integer_types = ['integer', 'bigint', 'float', 'decimal', 'smallint','decimal', 'boolean'];
 
     private $_string_types = ['string', 'text', 'blob'];
 
